@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="noms">
+        <item>Smith</item>
+        <item>Jones</item>
+        <item>Williams</item>
+        <!-- Add more names as needed -->
+    </string-array>
+
+    <string-array name="prenoms">
+        <item>John</item>
+        <item>Alice</item>
+        <item>Bob</item>
+        <!-- Add more first names as needed -->
+    </string-array>
+
+    <integer-array name="ages">
+        <item>25</item>
+        <item>32</item>
+        <item>41</item>
+        <!-- Add more ages as needed -->
+    </integer-array>
+</resources>

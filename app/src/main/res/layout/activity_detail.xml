@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
+        android:layout_height="match_parent" android:padding="16dp">
+
+        <TextView android:id="@+id/nomLabel" android:layout_width="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"  android:layout_height="match_parent"/>
+
+        <TextView android:id="@+id/nomDetail" android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/nomLabel"
+            app:layout_constraintTop_toTopOf="@id/nomLabel" />
+
+        <TextView android:id="@+id/prenomLabel" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nomLabel" />
+
+        <TextView android:id="@+id/prenomDetail" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/prenomLabel"
+            app:layout_constraintTop_toTopOf="@id/prenomLabel" />
+
+        <TextView android:id="@+id/ageLabel" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginTop="16dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/prenomLabel" />
+
+        <TextView android:id="@+id/ageDetail" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ageLabel"
+            app:layout_constraintTop_toTopOf="@id/ageLabel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

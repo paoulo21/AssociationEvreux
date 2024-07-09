@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "123809773974",
+    "project_id": "association-d-evreux",
+    "storage_bucket": "association-d-evreux.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123809773974:android:cc4bf41e77302a14d345b7",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiCN0ZrvxDujo1PucoyMhpkHhdtUMC0SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
