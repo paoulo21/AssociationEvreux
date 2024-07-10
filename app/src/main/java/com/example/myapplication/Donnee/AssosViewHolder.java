@@ -13,14 +13,14 @@ import com.example.myapplication.databinding.AssoBinding;
 public class AssosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private final AssoBinding ui;
     private AssosAdapter.OnItemClickListener listener;
-    DonneeApplication application;
+    AssosApplication application;
 
     public AssosViewHolder(@NonNull AssoBinding ui)
     {
         super(ui.getRoot());
         this.ui = ui;
         itemView.setOnClickListener(this);
-        application = (DonneeApplication) itemView.getContext().getApplicationContext();
+        application = (AssosApplication) itemView.getContext().getApplicationContext();
     }
 
     public void setAssociation(Association association) {

@@ -11,7 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Donnee.AssosAdapter;
-import com.example.myapplication.Donnee.DonneeApplication;
+import com.example.myapplication.Donnee.AssosApplication;
 import com.example.myapplication.databinding.ActivityAssociationBinding;
 
 public class AssociationActivity extends AppCompatActivity implements
@@ -24,7 +24,7 @@ public class AssociationActivity extends AppCompatActivity implements
         ui = ActivityAssociationBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(ui.getRoot());
-        DonneeApplication application = (DonneeApplication) getApplication();
+        AssosApplication application = (AssosApplication) getApplication();
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", 0);
         association = application.getAssociationList().get(position);
