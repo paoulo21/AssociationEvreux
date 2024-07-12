@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.Donnee.AssosAdapter;
 import com.example.myapplication.Donnee.AssosApplication;
 import com.example.myapplication.databinding.ActivityAssociationBinding;
@@ -31,6 +32,8 @@ public class AssociationActivity extends AppCompatActivity implements
         ui.nom.setText(association.getNom());
         ui.president.setText(association.getPresident());
         ui.adresse.setText(association.getAdresse());
+        ui.description.setText(association.getDescription());
+        Glide.with(this).load(association.getImageURL()).into(ui.image);
         ImageView appel = ui.appel;
         appel.setOnClickListener(new View.OnClickListener() {
             public void onClick(View btn) {

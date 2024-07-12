@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.Association.Association;
 import com.example.myapplication.Association.AssociationActivity;
 import com.example.myapplication.databinding.AssoBinding;
@@ -27,6 +28,7 @@ public class AssosViewHolder extends RecyclerView.ViewHolder implements View.OnC
         ui.nom.setText(association.getNom());
         ui.president.setText(association.getPresident());
         ui.adresse.setText(String.valueOf(association.getAdresse()));
+        Glide.with(itemView.getContext()).load(association.getImageURL()).into(ui.image);
     }
 
     @Override

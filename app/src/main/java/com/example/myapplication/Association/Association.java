@@ -5,15 +5,12 @@ import java.util.List;
 public class Association {
     public String nom;
     public String president;
-    public String directrice;
     public String projet;
     public String telephone;
     public String email;
     public String adresse;
+    public String imageURL;
     public String siteWeb;
-    public String rue;
-    public String codePostal;
-    public String ville;
     public String description;
     public List<String> actions;
     public String territoireIntervention;
@@ -22,10 +19,12 @@ public class Association {
     public String categorie;
     public String sousCategorie;
 
-    public Association(String nom, String president, String adresse) {
+    public Association(String nom, String president, String adresse, String description, String imageURL) {
         this.nom = nom;
         this.president = president;
         this.adresse = adresse;
+        this.description = description;
+        this.imageURL = imageURL;
         telephone = "02323424243";
         email = "test@mail.com";
     }
@@ -44,14 +43,6 @@ public class Association {
 
     public void setPresident(String president) {
         this.president = president;
-    }
-
-    public String getDirectrice() {
-        return directrice;
-    }
-
-    public void setDirectrice(String directrice) {
-        this.directrice = directrice;
     }
 
     public String getProjet() {
@@ -78,6 +69,14 @@ public class Association {
         this.email = email;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     public String getSiteWeb() {
         return siteWeb;
     }
@@ -86,24 +85,8 @@ public class Association {
         this.siteWeb = siteWeb;
     }
 
-    public String getRue() {
-        return rue;
-    }
-
-    public void setRue(String rue) {
-        this.rue = rue;
-    }
-
-    public String getCodePostal() {
-        return codePostal;
-    }
-
     public String getAdresse(){
-        return rue + " " + codePostal + " " + ville;
-    }
-
-    public void setCodePostal(String codePostal) {
-        this.codePostal = codePostal;
+        return adresse;
     }
 
     public String getDescription() {
@@ -120,14 +103,6 @@ public class Association {
 
     public void setActions(List<String> actions) {
         this.actions = actions;
-    }
-
-    public String getVille() {
-        return ville;
-    }
-
-    public void setVille(String ville) {
-        this.ville = ville;
     }
 
     public String getTerritoireIntervention() {

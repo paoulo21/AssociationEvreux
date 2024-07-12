@@ -16,13 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AssosApplication extends Application {
-    private List<Association> associationList = new ArrayList<>();
+    private static List<Association> associationList = new ArrayList<>();
     private static final String TAG = "App";
     private OnAssociationsLoadedListener listener;
     private int positionAsso;
     @Override public void onCreate() {
         super.onCreate();
-        if (associationList.isEmpty()) {
+        loadAssociations();
+    }
+
+    private void loadAssociations() {
+        if (AssosApplication.associationList.isEmpty()) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("Assos")
                     .get()
@@ -31,10 +35,15 @@ public class AssosApplication extends Application {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
-                                    Association asso = new Association(document.getString("nom"), document.getString("president"), document.getString("adresse"));
+                                    String nom = document.contains("nom") ? document.getString("nom") : "";
+                                    String president = document.contains("president") ? document.getString("president") : "";
+                                    String adresse = document.contains("adresse") ? document.getString("adresse") : "";
+                                    String description = document.contains("description") ? document.getString("description") : "";
+                                    String imageURL = document.contains("image") ? document.getString("image") : "";
+                                    Association asso = new Association(nom, president, adresse,description,imageURL);
                                     associationList.add(asso);
                                 }
-                                associationList.add(new Association("test", "test", "test"));
+                                associationList.add(new Association("test", "test", "test","test",""));
                                 listener.onAssociationsLoaded(associationList);
                             } else {
                                 Log.w(TAG, "Error getting documents.", task.getException());
@@ -46,16 +55,8 @@ public class AssosApplication extends Application {
         }
     }
 
-    public int getPositionAsso() {
-        return positionAsso;
-    }
-
-    public void setPositionAsso(int positionAsso) {
-        this.positionAsso = positionAsso;
-    }
-
     public List<Association> getAssociationList() {
-        return associationList;
+        return AssosApplication.associationList;
     }
 
     public interface OnAssociationsLoadedListener {
