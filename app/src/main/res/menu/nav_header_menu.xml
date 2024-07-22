@@ -7,18 +7,8 @@
         android:icon="@drawable/ic_launcher_foreground" />
 
     <item
-        android:id="@+id/nav_aze"
-        android:title="Home"
-        android:icon="@drawable/ic_launcher_foreground" />
-
-    <item
-        android:id="@+id/nav_eze"
-        android:title="Home"
-        android:icon="@drawable/ic_launcher_foreground" />
-
-    <item
-        android:id="@+id/nav_ere"
-        android:title="Home"
+        android:id="@+id/nav_cate"
+        android:title="Categorie"
         android:icon="@drawable/ic_launcher_foreground" />
 
 </menu>

@@ -33,6 +33,7 @@ public class AssosApplication extends Application {
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            int position = 0;
                             if (task.isSuccessful()) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
                                     String nom = document.contains("nom") ? document.getString("nom") : "";
@@ -40,10 +41,17 @@ public class AssosApplication extends Application {
                                     String adresse = document.contains("adresse") ? document.getString("adresse") : "";
                                     String description = document.contains("description") ? document.getString("description") : "";
                                     String imageURL = document.contains("image") ? document.getString("image") : "";
-                                    Association asso = new Association(nom, president, adresse,description,imageURL);
+                                    String categorie[] = document.contains("categorie") ? document.getString("categorie").split("/") : new String[]{};;
+                                    String telephone = document.contains("telephone") ? document.getString("telephone") : "";
+                                    String email = document.contains("email") ? document.getString("email") : "";
+                                    String action = document.contains("actions") ? document.getString("actions") : "";
+                                    String publicCible = document.contains("public") ? document.getString("public") : "";
+                                    String territoire = document.contains("territoire d'intervention") ? document.getString("territoire d'intervention") : "";
+                                    Association asso = new Association(nom, president, adresse,description,imageURL,categorie,telephone,email,action,publicCible,territoire,position);
+                                    position++;
                                     associationList.add(asso);
                                 }
-                                associationList.add(new Association("test", "test", "test","test",""));
+                                //associationList.add(new Association("test", "test", "test","test","","asso","02323424243","test"));
                                 listener.onAssociationsLoaded(associationList);
                             } else {
                                 Log.w(TAG, "Error getting documents.", task.getException());

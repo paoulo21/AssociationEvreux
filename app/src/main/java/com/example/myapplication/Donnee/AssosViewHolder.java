@@ -15,6 +15,7 @@ public class AssosViewHolder extends RecyclerView.ViewHolder implements View.OnC
     private final AssoBinding ui;
     private AssosAdapter.OnItemClickListener listener;
     AssosApplication application;
+    public int itemPos;
 
     public AssosViewHolder(@NonNull AssoBinding ui)
     {
@@ -29,6 +30,7 @@ public class AssosViewHolder extends RecyclerView.ViewHolder implements View.OnC
         ui.president.setText(association.getPresident());
         ui.adresse.setText(String.valueOf(association.getAdresse()));
         Glide.with(itemView.getContext()).load(association.getImageURL()).into(ui.image);
+        itemPos = association.getPosition();
     }
 
     @Override
@@ -36,7 +38,7 @@ public class AssosViewHolder extends RecyclerView.ViewHolder implements View.OnC
         if (listener != null)
             listener.onItemClick(getAbsoluteAdapterPosition());
         Intent intent = new Intent(itemView.getContext(), AssociationActivity.class);
-        intent.putExtra("position",getAbsoluteAdapterPosition());
+        intent.putExtra("position",itemPos);
         itemView.getContext().startActivity(intent);
     }
     public void setOnItemClickListener(AssosAdapter.OnItemClickListener l) {

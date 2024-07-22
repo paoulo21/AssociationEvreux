@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <stroke android:width="2dp" /> <!-- Épaisseur de la bordure -->
+    <stroke android:color="#000000" /> <!-- Couleur de la bordure -->
+    <corners android:radius="5dp" /> <!-- Coins arrondis (optionnel) -->
+</shape>

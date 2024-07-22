@@ -3,6 +3,7 @@ package com.example.myapplication.Association;
 import java.util.List;
 
 public class Association {
+    private final String action;
     public String nom;
     public String president;
     public String projet;
@@ -15,18 +16,22 @@ public class Association {
     public List<String> actions;
     public String territoireIntervention;
     public String publicCible;
-    public List<String> projetsSpecifiques;
-    public String categorie;
-    public String sousCategorie;
+    public String[] categorie;
+    public int position;
 
-    public Association(String nom, String president, String adresse, String description, String imageURL) {
+    public Association(String nom, String president, String adresse, String description, String imageURL,String[] categorie,String telephone,String email,String action,String publicCible,String territoireIntervention,int position) {
         this.nom = nom;
         this.president = president;
         this.adresse = adresse;
         this.description = description;
         this.imageURL = imageURL;
-        telephone = "02323424243";
-        email = "test@mail.com";
+        this.categorie = categorie;
+        this.telephone = telephone;
+        this.email = email;
+        this.action = action;
+        this.publicCible = publicCible;
+        this.territoireIntervention = territoireIntervention;
+        this.position = position;
     }
 
     public String getNom() {
@@ -113,19 +118,11 @@ public class Association {
         this.territoireIntervention = territoireIntervention;
     }
 
-    public List<String> getProjetsSpecifiques() {
-        return projetsSpecifiques;
-    }
-
-    public void setProjetsSpecifiques(List<String> projetsSpecifiques) {
-        this.projetsSpecifiques = projetsSpecifiques;
-    }
-
-    public String getCategorie() {
+    public String[] getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(String categorie) {
+    public void setCategorie(String[] categorie) {
         this.categorie = categorie;
     }
 
@@ -137,11 +134,15 @@ public class Association {
         this.publicCible = publicCible;
     }
 
-    public String getSousCategorie() {
-        return sousCategorie;
+    public String getAction() {
+        return action;
     }
 
-    public void setSousCategorie(String sousCategorie) {
-        this.sousCategorie = sousCategorie;
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
     }
 }

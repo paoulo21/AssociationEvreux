@@ -4,7 +4,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.Material3.DayNight.NoActionBar">
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -17,11 +18,21 @@
         android:layout_marginTop="13dp"
         />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toEndOf="@id/backButton"
+        app:layout_constraintTop_toBottomOf="@id/backButton"
+        app:layout_constraintBottom_toBottomOf="parent">
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/cardView"
         android:layout_marginHorizontal="8dp"
-        android:layout_marginVertical="5dp"
+        android:layout_marginVertical="35dp"
+        android:layout_marginBottom="30dp"
+        android:paddingBottom="30dp"
         app:cardBackgroundColor="#4CAF50"
         app:cardCornerRadius="10dp"
         app:cardElevation="8dp"
@@ -61,6 +72,21 @@
 
             </LinearLayout>
 
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/adresseTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Adresse"
+                android:layout_gravity="center_horizontal"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <TextView
                 android:id="@+id/adresse"
                 android:layout_width="wrap_content"
@@ -69,21 +95,60 @@
                 android:text="adresse"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
+
             <TextView
-                android:id="@+id/president"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="president"
+                android:text="Direction :"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/president"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="president"
+                android:layout_weight="1"
+                android:textAlignment="textEnd"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginVertical="5dp"
+                app:cardBackgroundColor="#4CAF50"
+                app:cardCornerRadius="10dp"
+                app:strokeColor="@color/black"
+                app:cardElevation="8dp"
+                app:contentPadding="16dp"
+                app:layout_constraintStart_toEndOf="@id/backButton"
+                app:layout_constraintTop_toBottomOf="@id/backButton"
+                >
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:textSize="34sp"
                 android:text="description : "
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -94,18 +159,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/appelText"
                     android:text="02323424243"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     />
 
                 <ImageView
-                    android:id="@+id/appel"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/appelIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="5dp"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="centerCrop"
+                    android:background="@drawable/border"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -124,18 +191,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/mailText"
                     android:text="test@mail.com"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     />
 
                 <ImageView
-                    android:id="@+id/mail"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:id="@+id/mailIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="5dp"
                     android:cropToPadding="false"
                     android:padding="5dp"
                     android:scaleType="centerCrop"
+                    android:background="@drawable/border"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -143,10 +212,48 @@
                     app:srcCompat="@drawable/baseline_mark_email_unread_24" />
 
 
+
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/categorie"
+                android:text="categorie"
+                android:clickable="true"
+                android:textStyle="bold"
+                android:textColor="#3F51B5"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/action"
+                android:text="action"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/publicCible"
+                android:text="public"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/territoire"
+                android:text="territoire"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

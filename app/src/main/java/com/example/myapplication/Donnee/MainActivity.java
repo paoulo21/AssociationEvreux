@@ -1,33 +1,30 @@
 package com.example.myapplication.Donnee;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myapplication.Association.Association;
 import com.example.myapplication.R;
+import com.example.myapplication.Template.BaseActivity;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AssosApplication.OnAssociationsLoadedListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements AssosApplication.OnAssociationsLoadedListener, NavigationView.OnNavigationItemSelectedListener {
     private ActivityMainBinding ui;
     private List<Association> assoList;
     AssosApplication application;
     ProgressBar progressBar;
-    ActionBarDrawerToggle toggle;
+    private static boolean loaded = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,23 +32,30 @@ public class MainActivity extends AppCompatActivity implements AssosApplication.
         EdgeToEdge.enable(this);
         setContentView(ui.getRoot());
         progressBar = ui.progressBar;
-        if (savedInstanceState == null) { // Première création
+        if (!loaded) { // Première création
             progressBar.setVisibility(View.VISIBLE);
         }
         application = (AssosApplication) getApplication();
         application.setOnAssociationsLoadedListener(this);
+
         toggle = new ActionBarDrawerToggle(this, ui.drawerLayout, R.string.open, R.string.close);
         ui.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         ui.navView.setNavigationItemSelectedListener(this);
         onAssociationsLoaded(application.getAssociationList());
 
     }
 
     @Override
+    protected int getLayoutResourceId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) {
+        if (super.onOptionsItemSelected(item)) { // Appeler la méthode de BaseActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -92,21 +96,7 @@ public class MainActivity extends AppCompatActivity implements AssosApplication.
                 return true;
             }
         });
-
-
+        loaded = true;
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Toast.makeText(this, "test", Toast.LENGTH_SHORT).show();
-        int id = item.getItemId();
-        if (id == R.id.nav_home && !(this instanceof MainActivity)) {
-            Log.i("test", "test");
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("position",0);
-            this.startActivity(intent);
-        }
-        //ui.drawerLayout.closeDrawers();
-        return true;
-    }
 }

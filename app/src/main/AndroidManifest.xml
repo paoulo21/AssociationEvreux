@@ -26,6 +26,14 @@
             android:name=".Association.AssociationActivity"
             android:exported="true" >
         </activity>
+        <activity
+            android:name=".Categorie.CategorieActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".Template.BaseActivity"
+            android:exported="true" >
+        </activity>
     </application>
 
 </manifest>
