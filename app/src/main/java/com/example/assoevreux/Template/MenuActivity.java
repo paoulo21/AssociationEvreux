@@ -1,4 +1,4 @@
-package com.example.myapplication.Template;
+package com.example.assoevreux.Template;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,16 +6,17 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.myapplication.Categorie.CategorieActivity;
-import com.example.myapplication.Donnee.MainActivity;
-import com.example.myapplication.R;
+import com.example.assoevreux.Categorie.CategorieActivity;
+import com.example.assoevreux.Donnee.MainActivity;
+import com.example.assoevreux.R;
 import com.google.android.material.navigation.NavigationView;
 
-public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public abstract class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
@@ -26,13 +27,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResourceId()); // Chaque activité enfant fournira son propre layout
 
-        drawerLayout = findViewById(R.id.drawerLayout); // Assurez-vous que l'ID est correct dans vos layouts
+        drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.nav_view);
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close); // Utilisez les chaînes appropriées
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -47,8 +51,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         }
         return super.onOptionsItemSelected(item);
     }
-
-    // Implémentez la méthode onNavigationItemSelected ici ou dans les activités enfants
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -56,7 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         if (id == R.id.nav_home) {
             drawerLayout.closeDrawers();
             Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT); // Ajouter ce drapeau
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         } else if (id == R.id.nav_cate) {
             drawerLayout.closeDrawers();

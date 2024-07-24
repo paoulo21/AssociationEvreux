@@ -1,4 +1,4 @@
-package com.example.myapplication.Categorie;
+package com.example.assoevreux.Categorie;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Association.Association;
-import com.example.myapplication.Association.AssociationActivity;
-import com.example.myapplication.R;
+import com.example.assoevreux.Association.Association;
+import com.example.assoevreux.Association.AssociationActivity;
+import com.example.assoevreux.R;
 
 import java.util.ArrayList;
 import java.util.List;

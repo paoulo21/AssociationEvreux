@@ -1,11 +1,11 @@
-package com.example.myapplication.Donnee;
+package com.example.assoevreux.Donnee;
 
 import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.myapplication.Association.Association;
+import com.example.assoevreux.Association.Association;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -19,7 +19,6 @@ public class AssosApplication extends Application {
     private static List<Association> associationList = new ArrayList<>();
     private static final String TAG = "App";
     private OnAssociationsLoadedListener listener;
-    private int positionAsso;
     @Override public void onCreate() {
         super.onCreate();
         loadAssociations();
@@ -29,6 +28,7 @@ public class AssosApplication extends Application {
         if (AssosApplication.associationList.isEmpty()) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("Assos")
+                    .orderBy("nom")
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -41,7 +41,7 @@ public class AssosApplication extends Application {
                                     String adresse = document.contains("adresse") ? document.getString("adresse") : "";
                                     String description = document.contains("description") ? document.getString("description") : "";
                                     String imageURL = document.contains("image") ? document.getString("image") : "";
-                                    String categorie[] = document.contains("categorie") ? document.getString("categorie").split("/") : new String[]{};;
+                                    String categorie[] = document.contains("categorie") ? document.getString("categorie").trim().split("/") : new String[]{};;
                                     String telephone = document.contains("telephone") ? document.getString("telephone") : "";
                                     String email = document.contains("email") ? document.getString("email") : "";
                                     String action = document.contains("actions") ? document.getString("actions") : "";
@@ -58,6 +58,7 @@ public class AssosApplication extends Application {
                             }
                         }
                     });
+
         } else {
             listener.onAssociationsLoaded(associationList);
         }

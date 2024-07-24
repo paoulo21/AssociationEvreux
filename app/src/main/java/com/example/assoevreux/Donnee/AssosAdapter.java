@@ -1,4 +1,4 @@
-package com.example.myapplication.Donnee;
+package com.example.assoevreux.Donnee;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.Association.Association;
-import com.example.myapplication.databinding.AssoBinding;
+import com.example.assoevreux.Association.Association;
+import com.example.assoevreux.databinding.AssoBinding;
 
 import java.util.ArrayList;
 import java.util.List;

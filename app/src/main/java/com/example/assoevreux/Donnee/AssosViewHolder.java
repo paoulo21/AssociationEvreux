@@ -1,4 +1,4 @@
-package com.example.myapplication.Donnee;
+package com.example.assoevreux.Donnee;
 
 import android.content.Intent;
 import android.view.View;
@@ -7,9 +7,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Association.Association;
-import com.example.myapplication.Association.AssociationActivity;
-import com.example.myapplication.databinding.AssoBinding;
+import com.example.assoevreux.Association.Association;
+import com.example.assoevreux.Association.AssociationActivity;
+import com.example.assoevreux.databinding.AssoBinding;
 
 public class AssosViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private final AssoBinding ui;

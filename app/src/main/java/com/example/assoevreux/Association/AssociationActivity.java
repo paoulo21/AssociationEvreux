@@ -1,4 +1,4 @@
-package com.example.myapplication.Association;
+package com.example.assoevreux.Association;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,10 +16,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.example.myapplication.Categorie.CategorieActivity;
-import com.example.myapplication.Donnee.AssosAdapter;
-import com.example.myapplication.Donnee.AssosApplication;
-import com.example.myapplication.databinding.ActivityAssociationBinding;
+import com.example.assoevreux.Categorie.CategorieActivity;
+import com.example.assoevreux.Donnee.AssosAdapter;
+import com.example.assoevreux.Donnee.AssosApplication;
+import com.example.assoevreux.databinding.ActivityAssociationBinding;
 
 public class AssociationActivity extends AppCompatActivity implements
         AssosAdapter.OnItemClickListener{
@@ -31,9 +31,6 @@ public class AssociationActivity extends AppCompatActivity implements
         ui = ActivityAssociationBinding.inflate(getLayoutInflater());
         EdgeToEdge.enable(this);
         setContentView(ui.getRoot());
-        getWindow().getDecorView().setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         AssosApplication application = (AssosApplication) getApplication();
         Intent intent = getIntent();
         int position = intent.getIntExtra("position", 0);
@@ -58,29 +55,31 @@ public class AssociationActivity extends AppCompatActivity implements
         ImageButton back = ui.backButton;
         back.setOnClickListener(btn -> finish());
         setCategories();
-        ui.action.setText(association.getAction());
+        String actionText = association.getAction().replace("•", "\n•");
+        ui.action.setText(actionText);
         ui.territoire.setText(association.getTerritoireIntervention());
         ui.publicCible.setText(association.getPublicCible());
     }
 
     private void setCategories() {
-        String categoriesAffichees = String.join(" \n •", association.getCategorie());
+        String categoriesAffichees = String.join(" \n•", association.getCategorie());
         SpannableString categorieText = new SpannableString(categoriesAffichees);
         Context context = this;
         int startIndex = 0;
         for (String categorie : association.getCategorie()) {
+            categorie = categorie.trim();
+            String finalCategorie = categorie;
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-                    // Action pour la catégorie
                     Intent intent = new Intent(context, CategorieActivity.class);
-                    intent.putExtra("categorie", categorie);
+                    intent.putExtra("categorie", finalCategorie);
                     startActivity(intent);
                 }
             };
             int endIndex = startIndex + categorie.length();
             categorieText.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            startIndex = endIndex + 2; // +2 pour la virgule et l'espace
+            startIndex = endIndex + 3;
         }
         ui.categorie.setText(categorieText);
         ui.categorie.setMovementMethod(LinkMovementMethod.getInstance());

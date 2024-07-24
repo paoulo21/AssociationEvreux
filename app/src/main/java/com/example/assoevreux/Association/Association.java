@@ -1,4 +1,4 @@
-package com.example.myapplication.Association;
+package com.example.assoevreux.Association;
 
 import java.util.List;
 

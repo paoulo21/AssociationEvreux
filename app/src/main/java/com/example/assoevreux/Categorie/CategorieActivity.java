@@ -1,4 +1,4 @@
-package com.example.myapplication.Categorie;
+package com.example.assoevreux.Categorie;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,21 +6,22 @@ import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
 
-import com.example.myapplication.Association.Association;
-import com.example.myapplication.Donnee.AssosApplication;
-import com.example.myapplication.R;
-import com.example.myapplication.Template.BaseActivity;
-import com.example.myapplication.databinding.ActivityCategorieBinding;
+import com.example.assoevreux.Association.Association;
+import com.example.assoevreux.Donnee.AssosApplication;
+import com.example.assoevreux.R;
+import com.example.assoevreux.Template.MenuActivity;
+import com.example.assoevreux.databinding.ActivityCategorieBinding;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class CategorieActivity extends BaseActivity {
+public class CategorieActivity extends MenuActivity {
 
     private ExpandableListView expandableListView;
     private Map<String, List<Association>> associationsByCategory;
@@ -34,14 +35,14 @@ public class CategorieActivity extends BaseActivity {
         expandableListView = ui.expandableListView;
 
         // Récupérer les associations et les organiser par catégorie
-        // ... (votre code pour récupérer les associations)
-        associationsByCategory = new HashMap<>();
+        associationsByCategory = new TreeMap<>();
         AssosApplication application = (AssosApplication) getApplication();
         List<Association> allAssociations = application.getAssociationList();
 
         for (Association association : allAssociations) {
             for (String categories : association.getCategorie()) {
                 for (String category : categories.split("/")) {
+                    category = category.trim();
                     if (!associationsByCategory.containsKey(category)) {
                         associationsByCategory.put(category, new ArrayList<>());
                     }
@@ -49,15 +50,16 @@ public class CategorieActivity extends BaseActivity {
                 }
             }
         }
-
-        // Créer l'adaptateur et l'associer à l'ExpandableListView
         AssociationExpandableListAdapter adapter = new AssociationExpandableListAdapter(this,associationsByCategory);
         expandableListView.setAdapter(adapter);
 
         toggle = new ActionBarDrawerToggle(this, ui.drawerLayout, R.string.open, R.string.close);
         ui.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         ui.navView.setNavigationItemSelectedListener(this);
         SearchView searchView = ui.searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -87,7 +89,7 @@ public class CategorieActivity extends BaseActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (super.onOptionsItemSelected(item)) { // Appeler la méthode de BaseActivity
+        if (super.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);

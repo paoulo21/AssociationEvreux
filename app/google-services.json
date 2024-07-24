@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:123809773974:android:083acd07e54ae209d345b7",
+        "android_client_info": {
+          "package_name": "com.conceptic.assoevreux"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiCN0ZrvxDujo1PucoyMhpkHhdtUMC0SU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:123809773974:android:cc4bf41e77302a14d345b7",
         "android_client_info": {
           "package_name": "com.example.myapplication"

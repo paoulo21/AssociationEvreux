@@ -1,4 +1,4 @@
-package com.example.myapplication.Donnee;
+package com.example.assoevreux.Donnee;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,19 +7,20 @@ import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myapplication.Association.Association;
-import com.example.myapplication.R;
-import com.example.myapplication.Template.BaseActivity;
-import com.example.myapplication.databinding.ActivityMainBinding;
+import com.example.assoevreux.Association.Association;
+import com.example.assoevreux.R;
+import com.example.assoevreux.Template.MenuActivity;
+import com.example.assoevreux.databinding.ActivityMainBinding;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements AssosApplication.OnAssociationsLoadedListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends MenuActivity implements AssosApplication.OnAssociationsLoadedListener, NavigationView.OnNavigationItemSelectedListener {
     private ActivityMainBinding ui;
     private List<Association> assoList;
     AssosApplication application;
@@ -41,7 +42,10 @@ public class MainActivity extends BaseActivity implements AssosApplication.OnAss
         toggle = new ActionBarDrawerToggle(this, ui.drawerLayout, R.string.open, R.string.close);
         ui.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         ui.navView.setNavigationItemSelectedListener(this);
         onAssociationsLoaded(application.getAssociationList());
@@ -76,7 +80,7 @@ public class MainActivity extends BaseActivity implements AssosApplication.OnAss
         ui.recycler.setLayoutManager(new LinearLayoutManager(this));
         adapter.setOnItemClickListener(this::onItemClick);
         application.setOnAssociationsLoadedListener(association -> {
-            progressBar.setVisibility(View.GONE); // Masquer la barre de progression ICI
+            progressBar.setVisibility(View.GONE);
         });
         SearchView searchView = ui.searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
