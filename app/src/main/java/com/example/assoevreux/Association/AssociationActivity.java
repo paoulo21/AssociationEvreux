@@ -21,6 +21,9 @@ import com.example.assoevreux.Donnee.AssosAdapter;
 import com.example.assoevreux.Donnee.AssosApplication;
 import com.example.assoevreux.databinding.ActivityAssociationBinding;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AssociationActivity extends AppCompatActivity implements
         AssosAdapter.OnItemClickListener{
     private ActivityAssociationBinding ui;
@@ -59,6 +62,37 @@ public class AssociationActivity extends AppCompatActivity implements
         ui.action.setText(actionText);
         ui.territoire.setText(association.getTerritoireIntervention());
         ui.publicCible.setText(association.getPublicCible());
+        addWebSite();
+    }
+
+    public void addWebSite(){
+        String text = association.getSiteWeb();
+
+        // Use a regular expression to find all URLs in the text
+        Pattern urlPattern = Pattern.compile("((https?|ftp|file)://|www\\.)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
+        Matcher matcher = urlPattern.matcher(text);
+
+        SpannableString spannableString = new SpannableString(text);
+
+        while (matcher.find()) {
+            final String url = matcher.group();
+            int startIndex = matcher.start();
+            int endIndex = matcher.end();
+
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    // Open the URL in a browser
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                }
+            };
+            spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        // Set the SpannableString to the TextView and enable clickable links
+        ui.siteWeb.setText(spannableString);
+        ui.siteWeb.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setCategories() {

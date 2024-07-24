@@ -19,7 +19,7 @@ public class Association {
     public String[] categorie;
     public int position;
 
-    public Association(String nom, String president, String adresse, String description, String imageURL,String[] categorie,String telephone,String email,String action,String publicCible,String territoireIntervention,int position) {
+    public Association(String nom, String president, String adresse, String description, String imageURL,String[] categorie,String telephone,String email,String action,String publicCible,String territoireIntervention,String siteWeb,int position) {
         this.nom = nom;
         this.president = president;
         this.adresse = adresse;
@@ -31,6 +31,7 @@ public class Association {
         this.action = action;
         this.publicCible = publicCible;
         this.territoireIntervention = territoireIntervention;
+        this.siteWeb = siteWeb;
         this.position = position;
     }
 

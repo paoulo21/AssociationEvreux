@@ -47,7 +47,8 @@ public class AssosApplication extends Application {
                                     String action = document.contains("actions") ? document.getString("actions") : "";
                                     String publicCible = document.contains("public") ? document.getString("public") : "";
                                     String territoire = document.contains("territoire d'intervention") ? document.getString("territoire d'intervention") : "";
-                                    Association asso = new Association(nom, president, adresse,description,imageURL,categorie,telephone,email,action,publicCible,territoire,position);
+                                    String siteWeb = document.contains("site web") ? document.getString("site web") : "";
+                                    Association asso = new Association(nom, president, adresse,description,imageURL,categorie,telephone,email,action,publicCible,territoire,siteWeb,position);
                                     position++;
                                     associationList.add(asso);
                                 }

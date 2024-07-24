@@ -307,6 +307,12 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 />
 
+            <TextView
+                android:id="@+id/siteWeb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="site web" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
