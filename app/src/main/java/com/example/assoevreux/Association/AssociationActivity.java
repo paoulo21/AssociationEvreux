@@ -40,6 +40,13 @@ public class AssociationActivity extends AppCompatActivity implements
         ui.nom.setText(association.getNom());
         ui.president.setText(association.getPresident());
         ui.adresse.setText(association.getAdresse());
+        ui.adresse.setOnClickListener(v -> {
+            String adresse = association.getAdresse();
+            Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(adresse));
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+            mapIntent.setPackage("com.google.android.apps.maps");
+            startActivity(mapIntent);
+        });
         ui.description.setText(association.getDescription());
         Glide.with(this).load(association.getImageURL()).into(ui.image);
         setMail();

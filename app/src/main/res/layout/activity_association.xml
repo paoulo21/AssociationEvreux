@@ -94,6 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="adresse"
+                android:textColor="#3F51B5"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <com.google.android.material.divider.MaterialDivider
