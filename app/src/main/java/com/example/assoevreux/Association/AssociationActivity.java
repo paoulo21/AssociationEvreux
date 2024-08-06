@@ -43,17 +43,13 @@ public class AssociationActivity extends AppCompatActivity implements
         ui.adresse.setText(association.getAdresse());
         ui.description.setText(association.getDescription());
         Glide.with(this).load(association.getImageURL()).into(ui.image);
+        setMail();
         ui.appelText.setText(association.getTelephone());
-        ui.mailText.setText(association.getEmail());
+
         ImageView appel = ui.appelIcon;
         appel.setOnClickListener(btn -> {
             Intent toAppel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + association.getTelephone()));
             startActivity(toAppel);
-        });
-        ImageView mail = ui.mailIcon;
-        mail.setOnClickListener(btn -> {
-            Intent toMail = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + association.getEmail()));
-            startActivity(toMail);
         });
         String actionText = association.getAction().replace("•", "\n•");
         ui.action.setText(actionText);
@@ -63,6 +59,28 @@ public class AssociationActivity extends AppCompatActivity implements
         back.setOnClickListener(btn -> finish());
         setCategories();
         addWebSite();
+    }
+
+    private void setMail() {
+        // Adresses e-mail
+        SpannableString spannableString = new SpannableString(association.getEmail());
+        Pattern emailPattern = Pattern.compile("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}");
+        Matcher emailMatcher = emailPattern.matcher(association.getEmail());
+        while (emailMatcher.find()) {
+            final String email = emailMatcher.group();
+            int startIndex = emailMatcher.start();
+            int endIndex = emailMatcher.end();
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + email));
+                    startActivity(intent);
+                }
+            };
+            spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        ui.mailText.setText(spannableString);
+        ui.mailText.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     public void addWebSite(){
