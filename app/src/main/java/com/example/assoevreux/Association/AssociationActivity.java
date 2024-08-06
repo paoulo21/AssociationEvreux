@@ -10,7 +10,6 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,13 +43,7 @@ public class AssociationActivity extends AppCompatActivity implements
         ui.description.setText(association.getDescription());
         Glide.with(this).load(association.getImageURL()).into(ui.image);
         setMail();
-        ui.appelText.setText(association.getTelephone());
-
-        ImageView appel = ui.appelIcon;
-        appel.setOnClickListener(btn -> {
-            Intent toAppel = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + association.getTelephone()));
-            startActivity(toAppel);
-        });
+        setAppel();
         String actionText = association.getAction().replace("•", "\n•");
         ui.action.setText(actionText);
         ui.territoire.setText(association.getTerritoireIntervention());
@@ -59,6 +52,32 @@ public class AssociationActivity extends AppCompatActivity implements
         back.setOnClickListener(btn -> finish());
         setCategories();
         addWebSite();
+    }
+
+    public void setAppel(){
+        SpannableString spannableString = new SpannableString(association.getTelephone());
+
+        // Expression régulière pour détecter les numéros de téléphone
+        Pattern phonePattern = Pattern.compile("(\\d{2} \\d{2} \\d{2} \\d{2} \\d{2})");
+        Matcher phoneMatcher = phonePattern.matcher(association.getTelephone());
+
+        while (phoneMatcher.find()) {
+            final String phoneNumber = phoneMatcher.group().replace(" ", ""); // Supprimer les espaces
+            int startIndex = phoneMatcher.start();
+            int endIndex = phoneMatcher.end();
+
+            ClickableSpan clickableSpan = new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+                    startActivity(intent);
+                }
+            };
+            spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        ui.appelText.setText(spannableString); // Remplacez ui.telephoneText par le TextView approprié
+        ui.appelText.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setMail() {

@@ -173,12 +173,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -187,30 +181,6 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     />
 
-                <ImageView
-                    android:id="@+id/appelIcon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
-                    android:cropToPadding="false"
-                    android:padding="5dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/border"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5"
-                    app:srcCompat="@drawable/baseline_call_24" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -218,23 +188,6 @@
                     android:text="test@mail.com"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     />
-
-                <ImageView
-                    android:id="@+id/mailIcon"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="5dp"
-                    android:cropToPadding="false"
-                    android:padding="5dp"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/border"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5"
-                    app:srcCompat="@drawable/baseline_mark_email_unread_24" />
-
-            </LinearLayout>
 
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="match_parent"
