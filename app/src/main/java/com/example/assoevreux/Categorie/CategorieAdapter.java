@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class AssociationExpandableListAdapter extends BaseExpandableListAdapter {
+public class CategorieAdapter extends BaseExpandableListAdapter {
 
     private List<String> categories;
     private List<String> categoriesFiltre;
     private Map<String, List<Association>> associationsByCategory;
     private Context context;
 
-    public AssociationExpandableListAdapter(Context context, Map<String, List<Association>> associationsByCategory) {
+    public CategorieAdapter(Context context, Map<String, List<Association>> associationsByCategory) {
         this.categories = new ArrayList<>(associationsByCategory.keySet());
         this.categoriesFiltre = this.categories;
         this.associationsByCategory = associationsByCategory;
@@ -87,7 +87,7 @@ public class AssociationExpandableListAdapter extends BaseExpandableListAdapter 
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.asso, parent, false);
         }
-
+        // Ajoute les attributs d'une association a un layout asso
         Association association = associationsByCategory.get(categoriesFiltre.get(groupPosition)).get(childPosition);
         TextView associationTextView = convertView.findViewById(R.id.nom);
         associationTextView.setText(association.getNom());
@@ -113,6 +113,7 @@ public class AssociationExpandableListAdapter extends BaseExpandableListAdapter 
         return false;
     }
 
+    //Affiche les catégories correspondant au resultat de la recherche
     public void filter(String query) {
         if (query == null || query.isEmpty()) {
             categoriesFiltre = categories;

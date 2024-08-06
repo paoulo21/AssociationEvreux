@@ -27,6 +27,7 @@ public class AssosApplication extends Application {
     private void loadAssociations() {
         if (AssosApplication.associationList.isEmpty()) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
+            //requete firebase pour charger les associations
             db.collection("Assos")
                     .orderBy("nom")
                     .get()
@@ -41,7 +42,9 @@ public class AssosApplication extends Application {
                                     String adresse = document.contains("adresse") ? document.getString("adresse") : "";
                                     String description = document.contains("description") ? document.getString("description") : "";
                                     String imageURL = document.contains("image") ? document.getString("image") : "";
-                                    String categorie[] = document.contains("categorie") ? document.getString("categorie").trim().split("/") : new String[]{};;
+                                    String categorie[] = document.contains("categorie") ? document.getString("categorie").trim().split("/") : new String[]{};
+                                    for (int i = 0; i < categorie.length; i++) {categorie[i] = "\n• " + categorie[i];
+                                    }
                                     String telephone = document.contains("telephone") ? document.getString("telephone") : "";
                                     String email = document.contains("email") ? document.getString("email") : "";
                                     String action = document.contains("actions") ? document.getString("actions") : "";
@@ -52,7 +55,6 @@ public class AssosApplication extends Application {
                                     position++;
                                     associationList.add(asso);
                                 }
-                                //associationList.add(new Association("test", "test", "test","test","","asso","02323424243","test"));
                                 listener.onAssociationsLoaded(associationList);
                             } else {
                                 Log.w(TAG, "Error getting documents.", task.getException());
@@ -61,6 +63,7 @@ public class AssosApplication extends Application {
                     });
 
         } else {
+            // Si la liste d'associations est déjà chargée, notifie directement le listener
             listener.onAssociationsLoaded(associationList);
         }
     }

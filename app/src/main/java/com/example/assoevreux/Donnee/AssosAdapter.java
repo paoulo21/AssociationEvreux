@@ -29,7 +29,7 @@ public class AssosAdapter extends RecyclerView.Adapter<AssosViewHolder>{
     public AssosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.i(TAG,"onCreateViewHolder");
 
-        AssoBinding ui = AssoBinding.inflate( // Assuming you have DonneeBinding
+        AssoBinding ui = AssoBinding.inflate(
                 LayoutInflater.from(parent.getContext()),
                 parent,
                 false);
@@ -47,6 +47,7 @@ public class AssosAdapter extends RecyclerView.Adapter<AssosViewHolder>{
         return this.listeFiltre.size();
     }
 
+    //n'affiche que les associations correspondant au resultat de la recherche
     public void filter(String query) {
         if (query == null || query.isEmpty()) {
             listeFiltre = liste;

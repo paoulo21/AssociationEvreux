@@ -6,9 +6,8 @@ import android.view.MenuItem;
 import android.widget.ExpandableListView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
 
 import com.example.assoevreux.Association.Association;
 import com.example.assoevreux.Donnee.AssosApplication;
@@ -50,17 +49,12 @@ public class CategorieActivity extends MenuActivity {
                 }
             }
         }
-        AssociationExpandableListAdapter adapter = new AssociationExpandableListAdapter(this,associationsByCategory);
+        // Créer un adaptateur pour la map de catégories
+        CategorieAdapter adapter = new CategorieAdapter(this,associationsByCategory);
         expandableListView.setAdapter(adapter);
 
-        toggle = new ActionBarDrawerToggle(this, ui.drawerLayout, R.string.open, R.string.close);
-        ui.drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-        ui.navView.setNavigationItemSelectedListener(this);
+        setMenu(ui.drawerLayout,ui.navView);
+
         SearchView searchView = ui.searchView;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -79,11 +73,20 @@ public class CategorieActivity extends MenuActivity {
                 return true;
             }
         });
+        //récupérer la catégorie cliqué dans association et l'ouvrir
         Intent intent = getIntent();
         if (intent.hasExtra("categorie")){
             searchView.setQuery(intent.getStringExtra("categorie"),true);
             searchView.clearFocus();
             expandableListView.expandGroup(0);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (ui.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            ui.drawerLayout.closeDrawer(GravityCompat.START);
         }
     }
 

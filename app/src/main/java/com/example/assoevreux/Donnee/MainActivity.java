@@ -7,9 +7,8 @@ import android.widget.ProgressBar;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.assoevreux.Association.Association;
@@ -33,23 +32,23 @@ public class MainActivity extends MenuActivity implements AssosApplication.OnAss
         EdgeToEdge.enable(this);
         setContentView(ui.getRoot());
         progressBar = ui.progressBar;
-        if (!loaded) { // Première création
+        if (!loaded) { // Affiche la barre de progression uniquement pendant la première création
             progressBar.setVisibility(View.VISIBLE);
         }
         application = (AssosApplication) getApplication();
         application.setOnAssociationsLoadedListener(this);
+        setMenu(ui.drawerLayout,ui.navView);
 
-        toggle = new ActionBarDrawerToggle(this, ui.drawerLayout, R.string.open, R.string.close);
-        ui.drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        ui.navView.setNavigationItemSelectedListener(this);
         onAssociationsLoaded(application.getAssociationList());
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Ferme le menu quand on revient sur l'activité
+        if (ui.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            ui.drawerLayout.closeDrawer(GravityCompat.START);
+        }
     }
 
     @Override
@@ -59,26 +58,20 @@ public class MainActivity extends MenuActivity implements AssosApplication.OnAss
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (super.onOptionsItemSelected(item)) { // Appeler la méthode de BaseActivity
+        if (super.onOptionsItemSelected(item)) { // Appeler la méthode de MenuActivity
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void onItemClick(int position) {
-        Association asso = assoList.get(position);
-
-    }
-
     @Override
-    public void onAssociationsLoaded(List<Association> associations) {
+    public void onAssociationsLoaded(List<Association> associations) { // Quand les associations on fini d'être récuperé
         application = (AssosApplication) getApplication();
         assoList = application.getAssociationList();
         AssosAdapter adapter = new AssosAdapter(assoList);
         ui.recycler.setAdapter(adapter);
         ui.recycler.setHasFixedSize(true);
         ui.recycler.setLayoutManager(new LinearLayoutManager(this));
-        adapter.setOnItemClickListener(this::onItemClick);
         application.setOnAssociationsLoadedListener(association -> {
             progressBar.setVisibility(View.GONE);
         });

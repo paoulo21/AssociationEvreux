@@ -18,28 +18,14 @@ import com.google.android.material.navigation.NavigationView;
 
 public abstract class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    protected DrawerLayout drawerLayout;
-    protected NavigationView navigationView;
     protected ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResourceId()); // Chaque activité enfant fournira son propre layout
-
-        drawerLayout = findViewById(R.id.drawerLayout);
-        navigationView = findViewById(R.id.nav_view);
-
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        navigationView.setNavigationItemSelectedListener(this);
     }
+
 
     // Méthode abstraite que chaque activité enfant devra implémenter pour fournir son layout
     protected abstract int getLayoutResourceId();
@@ -51,22 +37,31 @@ public abstract class MenuActivity extends AppCompatActivity implements Navigati
         }
         return super.onOptionsItemSelected(item);
     }
+
+    //Gestion d'un clic sur un élément du menu
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        drawerLayout.closeDrawers();
         if (id == R.id.nav_home) {
-            drawerLayout.closeDrawers();
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         } else if (id == R.id.nav_cate) {
-            drawerLayout.closeDrawers();
             Intent intent = new Intent(this, CategorieActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }
-        drawerLayout.closeDrawers();
         return true;
+    }
+
+    public void setMenu(DrawerLayout drawerLayout, NavigationView navView){
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        navView.setNavigationItemSelectedListener(this);
     }
 }

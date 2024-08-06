@@ -55,20 +55,20 @@ public class AssociationActivity extends AppCompatActivity implements
             Intent toMail = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:" + association.getEmail()));
             startActivity(toMail);
         });
-        ImageButton back = ui.backButton;
-        back.setOnClickListener(btn -> finish());
-        setCategories();
         String actionText = association.getAction().replace("•", "\n•");
         ui.action.setText(actionText);
         ui.territoire.setText(association.getTerritoireIntervention());
         ui.publicCible.setText(association.getPublicCible());
+        ImageButton back = ui.backButton;
+        back.setOnClickListener(btn -> finish());
+        setCategories();
         addWebSite();
     }
 
     public void addWebSite(){
         String text = association.getSiteWeb();
 
-        // Use a regular expression to find all URLs in the text
+        // Expression régulière qui détècte les liens
         Pattern urlPattern = Pattern.compile("((https?|ftp|file)://|www\\.)[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
         Matcher matcher = urlPattern.matcher(text);
 
@@ -78,11 +78,10 @@ public class AssociationActivity extends AppCompatActivity implements
             final String url = matcher.group();
             int startIndex = matcher.start();
             int endIndex = matcher.end();
-
+            //Ajoute le lien vers le site au texte correspondant
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-                    // Open the URL in a browser
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     startActivity(intent);
                 }
@@ -90,19 +89,19 @@ public class AssociationActivity extends AppCompatActivity implements
             spannableString.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
-        // Set the SpannableString to the TextView and enable clickable links
         ui.siteWeb.setText(spannableString);
         ui.siteWeb.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void setCategories() {
-        String categoriesAffichees = String.join(" \n•", association.getCategorie());
+        String categoriesAffichees = String.join("", association.getCategorie());
         SpannableString categorieText = new SpannableString(categoriesAffichees);
         Context context = this;
         int startIndex = 0;
         for (String categorie : association.getCategorie()) {
             categorie = categorie.trim();
             String finalCategorie = categorie;
+            //Ajoute le lien vers chaque catégorie au texte de celle ci
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
@@ -111,9 +110,9 @@ public class AssociationActivity extends AppCompatActivity implements
                     startActivity(intent);
                 }
             };
-            int endIndex = startIndex + categorie.length();
+            int endIndex = startIndex + categorie.length()+1;
             categorieText.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            startIndex = endIndex + 3;
+            startIndex = endIndex;
         }
         ui.categorie.setText(categorieText);
         ui.categorie.setMovementMethod(LinkMovementMethod.getInstance());

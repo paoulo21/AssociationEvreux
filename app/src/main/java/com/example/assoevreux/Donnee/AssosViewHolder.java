@@ -24,7 +24,7 @@ public class AssosViewHolder extends RecyclerView.ViewHolder implements View.OnC
         itemView.setOnClickListener(this);
         application = (AssosApplication) itemView.getContext().getApplicationContext();
     }
-
+    // Ajoute les attributs d'une association a un layout asso
     public void setAssociation(Association association) {
         ui.nom.setText(association.getNom());
         ui.president.setText(association.getPresident());
