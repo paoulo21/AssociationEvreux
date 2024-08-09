@@ -5,9 +5,12 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.assoevreux.Annonce.Annonce;
 import com.example.assoevreux.Association.Association;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -17,16 +20,17 @@ import java.util.List;
 
 public class AssosApplication extends Application {
     private static List<Association> associationList = new ArrayList<>();
+    private static List<Annonce> annonceList = new ArrayList<>();
     private static final String TAG = "App";
     private OnAssociationsLoadedListener listener;
     @Override public void onCreate() {
         super.onCreate();
         loadAssociations();
-    }
+        }
 
     private void loadAssociations() {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         if (AssosApplication.associationList.isEmpty()) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
             //requete firebase pour charger les associations
             db.collection("Assos")
                     .orderBy("nom")
@@ -66,10 +70,45 @@ public class AssosApplication extends Application {
             // Si la liste d'associations est déjà chargée, notifie directement le listener
             listener.onAssociationsLoaded(associationList);
         }
+        // Récupérer les annonces
+        db.collection("Annonces")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String idAssociation = document.getString("idAssociation");
+
+                            // Récupérer le nom de l'association
+                            db.collection("Assos").document(idAssociation)
+                                    .get()
+                                    .addOnCompleteListener(task2 -> {
+                                        if (task2.isSuccessful()) {
+                                            DocumentSnapshot associationDoc = task2.getResult();
+                                            String nomAssociation = associationDoc.getString("nom");
+                                            Annonce annonce = new Annonce(document.getString("titre"), document.getString("description"), document.getTimestamp("datePublication"), nomAssociation);
+                                            annonceList.add(annonce);
+                                        } else {
+                                            Log.w(TAG, "Erreur lors de la récupération du nom de l'association", task2.getException());
+                                        }
+
+                                    });
+                        }
+                    }else{
+                        // Gérer l'erreur
+                        Log.w(TAG, "Erreur lors de la récupération des annonces", task.getException());
+                    }});
+        annonceList.add(new Annonce("titre1","description1", Timestamp.now(),"451"));
+        annonceList.add(new Annonce("titre2","description2",Timestamp.now(),"165"));
+        annonceList.add(new Annonce("titre3","descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",Timestamp.now(),"1"));
+
     }
 
     public List<Association> getAssociationList() {
         return AssosApplication.associationList;
+    }
+
+    public List<Annonce> getAnnonceList() {
+        return annonceList;
     }
 
     public interface OnAssociationsLoadedListener {

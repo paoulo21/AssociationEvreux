@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class MainActivity extends MenuActivity implements AssosApplication.OnAssociationsLoadedListener, NavigationView.OnNavigationItemSelectedListener {
+public class AssosActivity extends MenuActivity implements AssosApplication.OnAssociationsLoadedListener, NavigationView.OnNavigationItemSelectedListener {
     private ActivityMainBinding ui;
     private List<Association> assoList;
     AssosApplication application;

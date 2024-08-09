@@ -1,5 +1,7 @@
 package com.example.assoevreux.Association;
 
+import com.example.assoevreux.Annonce.Annonce;
+
 import java.util.List;
 
 public class Association {
@@ -18,6 +20,7 @@ public class Association {
     public String publicCible;
     public String[] categorie;
     public int position;
+    public List<Annonce> annonces;
 
     public Association(String nom, String president, String adresse, String description, String imageURL,String[] categorie,String telephone,String email,String action,String publicCible,String territoireIntervention,String siteWeb,int position) {
         this.nom = nom;

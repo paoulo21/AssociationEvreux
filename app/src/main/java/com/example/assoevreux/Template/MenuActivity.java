@@ -11,8 +11,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.assoevreux.Annonce.AnnonceActivity;
 import com.example.assoevreux.Categorie.CategorieActivity;
-import com.example.assoevreux.Donnee.MainActivity;
+import com.example.assoevreux.Donnee.AssosActivity;
 import com.example.assoevreux.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -43,11 +44,15 @@ public abstract class MenuActivity extends AppCompatActivity implements Navigati
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, AssosActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         } else if (id == R.id.nav_cate) {
             Intent intent = new Intent(this, CategorieActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+            startActivity(intent);
+        } else if (id == R.id.nav_annonce) {
+            Intent intent = new Intent(this, AnnonceActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             startActivity(intent);
         }

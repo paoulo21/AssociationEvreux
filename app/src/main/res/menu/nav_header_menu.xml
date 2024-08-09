@@ -11,4 +11,9 @@
         android:title="Categorie"
         android:icon="@drawable/ic_launcher_foreground" />
 
+    <item
+        android:id="@+id/nav_annonce"
+        android:title="Annonce"
+        android:icon="@drawable/ic_launcher_foreground" />
+
 </menu>
