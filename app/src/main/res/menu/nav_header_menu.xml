@@ -15,5 +15,18 @@
         android:id="@+id/nav_annonce"
         android:title="Annonce"
         android:icon="@drawable/ic_launcher_foreground" />
+    <item
+        android:id="@+id/nav_connexion"
+        android:title="Connexion"
+        android:icon="@drawable/ic_launcher_foreground" />
+
+    <item
+        android:id="@+id/nav_post_annonce"
+        android:title="Poster une annonce"
+        android:icon="@drawable/ic_launcher_foreground" />
+    <item
+        android:id="@+id/deconnexion"
+        android:title="Deconnexion"
+        android:icon="@drawable/ic_launcher_foreground" />
 
 </menu>

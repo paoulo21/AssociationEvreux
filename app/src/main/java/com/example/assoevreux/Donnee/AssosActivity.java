@@ -8,9 +8,9 @@ import android.widget.ProgressBar;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.GravityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.assoevreux.Application.AssosApplication;
 import com.example.assoevreux.Association.Association;
 import com.example.assoevreux.R;
 import com.example.assoevreux.Template.MenuActivity;
@@ -24,6 +24,7 @@ public class AssosActivity extends MenuActivity implements AssosApplication.OnAs
     private List<Association> assoList;
     AssosApplication application;
     ProgressBar progressBar;
+
     private static boolean loaded = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class AssosActivity extends MenuActivity implements AssosApplication.OnAs
         }
         application = (AssosApplication) getApplication();
         application.setOnAssociationsLoadedListener(this);
+
         setMenu(ui.drawerLayout,ui.navView);
 
         onAssociationsLoaded(application.getAssociationList());
@@ -45,10 +47,6 @@ public class AssosActivity extends MenuActivity implements AssosApplication.OnAs
     @Override
     protected void onResume() {
         super.onResume();
-        //Ferme le menu quand on revient sur l'activité
-        if (ui.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            ui.drawerLayout.closeDrawer(GravityCompat.START);
-        }
     }
 
     @Override
@@ -67,7 +65,7 @@ public class AssosActivity extends MenuActivity implements AssosApplication.OnAs
     @Override
     public void onAssociationsLoaded(List<Association> associations) { // Quand les associations on fini d'être récuperé
         application = (AssosApplication) getApplication();
-        assoList = application.getAssociationList();
+        assoList = associations;
         AssosAdapter adapter = new AssosAdapter(assoList);
         ui.recycler.setAdapter(adapter);
         ui.recycler.setHasFixedSize(true);
@@ -94,6 +92,7 @@ public class AssosActivity extends MenuActivity implements AssosApplication.OnAs
             }
         });
         loaded = true;
+
     }
 
 }

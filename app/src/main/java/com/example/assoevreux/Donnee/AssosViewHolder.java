@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.assoevreux.Application.AssosApplication;
 import com.example.assoevreux.Association.Association;
 import com.example.assoevreux.Association.AssociationActivity;
 import com.example.assoevreux.databinding.AssoBinding;

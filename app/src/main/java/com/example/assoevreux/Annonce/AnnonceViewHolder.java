@@ -14,8 +14,6 @@ import java.util.Locale;
 public class AnnonceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final AnnonceCardBinding ui;
     private AnnonceAdapter.OnItemClickListener listener;
-    // AssosApplication application; // Vous n'aurez peut-être pas besoin de cela pour les annonces
-    public int itemPos;
 
     public AnnonceViewHolder(@NonNull AnnonceCardBinding ui) {
         super(ui.getRoot());
@@ -28,14 +26,15 @@ public class AnnonceViewHolder extends RecyclerView.ViewHolder implements View.O
     public void bind(Annonce annonce, AnnonceAdapter.OnItemClickListener listener) {
         ui.titre.setText(annonce.getTitre());
         SimpleDateFormat formatter = new SimpleDateFormat("'Le' dd MMMM yyyy 'à' HH:mm", Locale.FRENCH);
-        ui.datePublication.setText(formatter.format(annonce.getDatePublication().toDate()));String descriptionComplete = annonce.getDescription();
+        ui.datePublication.setText(formatter.format(annonce.getDatePublication().toDate()));
+        String descriptionComplete = annonce.getDescription();
         ui.description.setText(descriptionComplete);
+        ui.nom.setText(annonce.getNomAssociation());
 
         if (descriptionComplete.length() > 50) { // Ou une autre limite de caractères
             ui.description.setMaxLines(1);
             ui.description.setEllipsize(TextUtils.TruncateAt.END);
             ui.pointsSuspension.setVisibility(View.VISIBLE);
-            ui.nom.setText(annonce.getNomAssociation());
             ui.annonceCard.setOnClickListener(v -> {
                 if (ui.description.getMaxLines() == 1) {
                     ui.description.setMaxLines(Integer.MAX_VALUE);
@@ -50,7 +49,7 @@ public class AnnonceViewHolder extends RecyclerView.ViewHolder implements View.O
         } else {
             ui.pointsSuspension.setVisibility(View.GONE);
         }
-        //itemPos = annonce.getIdAssociation(); // Ou tout autre identifiant unique de l'annonce
+        //itemPos = annonce.getIdAssociation();
         this.listener = listener;
     }
 

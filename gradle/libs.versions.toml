@@ -15,6 +15,9 @@ firebaseStorage = "21.0.0"
 lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2024.04.01"
+firebaseAuth = "23.0.0"
+filamentAndroid = "1.17.1"
+identityCredential = "20231002"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -38,6 +41,9 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
+filament-android = { group = "com.google.ar.sceneform", name = "filament-android", version.ref = "filamentAndroid" }
+identity-credential = { group = "com.android.identity", name = "identity-credential", version.ref = "identityCredential" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

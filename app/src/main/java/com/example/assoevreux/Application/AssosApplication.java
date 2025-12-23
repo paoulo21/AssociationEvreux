@@ -1,4 +1,4 @@
-package com.example.assoevreux.Donnee;
+package com.example.assoevreux.Application;
 
 import android.app.Application;
 import android.util.Log;
@@ -10,6 +10,7 @@ import com.example.assoevreux.Association.Association;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -23,6 +24,9 @@ public class AssosApplication extends Application {
     private static List<Annonce> annonceList = new ArrayList<>();
     private static final String TAG = "App";
     private OnAssociationsLoadedListener listener;
+    private static String associationUtilisateur;
+    private static String idAssociation;
+    private static String imageAssociation;
     @Override public void onCreate() {
         super.onCreate();
         loadAssociations();
@@ -30,6 +34,25 @@ public class AssosApplication extends Application {
 
     private void loadAssociations() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            db.collection("Assos")
+                    .whereEqualTo("UID", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                    .get()
+                    .addOnCompleteListener( task2 -> {
+                        if (task2.isSuccessful()) {
+                            // Traiter les résultats de la requête
+                            for (QueryDocumentSnapshot document : task2.getResult()) {
+                                // Accéder aux données du document
+                                String nomAssociation = document.getString("nom");
+                                AssosApplication.setAssociationUtilisateur(nomAssociation);
+                                String id = document.getId();
+                                AssosApplication.setIdAssociation(id);
+                                String imageURL = document.getString("image");
+                                AssosApplication.setImageAssociation(imageURL);
+                            }
+                        }
+                    });
+        }
         if (AssosApplication.associationList.isEmpty()) {
             //requete firebase pour charger les associations
             db.collection("Assos")
@@ -46,8 +69,9 @@ public class AssosApplication extends Application {
                                     String adresse = document.contains("adresse") ? document.getString("adresse") : "";
                                     String description = document.contains("description") ? document.getString("description") : "";
                                     String imageURL = document.contains("image") ? document.getString("image") : "";
-                                    String categorie[] = document.contains("categorie") ? document.getString("categorie").trim().split("/") : new String[]{};
-                                    for (int i = 0; i < categorie.length; i++) {categorie[i] = "\n• " + categorie[i];
+                                    String[] categorie = document.contains("categorie") ? document.getString("categorie").split("/") : new String[]{};
+                                    for (int i = 0; i < categorie.length; i++) {
+                                        categorie[i] = "\n• " + categorie[i].trim();
                                     }
                                     String telephone = document.contains("telephone") ? document.getString("telephone") : "";
                                     String email = document.contains("email") ? document.getString("email") : "";
@@ -83,6 +107,7 @@ public class AssosApplication extends Application {
                                     .get()
                                     .addOnCompleteListener(task2 -> {
                                         if (task2.isSuccessful()) {
+
                                             DocumentSnapshot associationDoc = task2.getResult();
                                             String nomAssociation = associationDoc.getString("nom");
                                             Annonce annonce = new Annonce(document.getString("titre"), document.getString("description"), document.getTimestamp("datePublication"), nomAssociation);
@@ -97,10 +122,36 @@ public class AssosApplication extends Application {
                         // Gérer l'erreur
                         Log.w(TAG, "Erreur lors de la récupération des annonces", task.getException());
                     }});
+
+
         annonceList.add(new Annonce("titre1","description1", Timestamp.now(),"451"));
         annonceList.add(new Annonce("titre2","description2",Timestamp.now(),"165"));
         annonceList.add(new Annonce("titre3","descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription",Timestamp.now(),"1"));
 
+    }
+
+    public static String getImageAssociation() {
+        return imageAssociation;
+    }
+
+    public static void setImageAssociation(String imageAssociation) {
+        AssosApplication.imageAssociation = imageAssociation;
+    }
+
+    public static String getIdAssociation() {
+        return idAssociation;
+    }
+
+    public static void setIdAssociation(String idAssociation) {
+        AssosApplication.idAssociation = idAssociation;
+    }
+
+    public static String getAssociationUtilisateur() {
+        return AssosApplication.associationUtilisateur;
+    }
+
+    public static void setAssociationUtilisateur(String associationUtilisateur) {
+        AssosApplication.associationUtilisateur = associationUtilisateur;
     }
 
     public List<Association> getAssociationList() {

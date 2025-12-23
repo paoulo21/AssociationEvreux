@@ -7,10 +7,9 @@ import android.widget.ExpandableListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.GravityCompat;
 
 import com.example.assoevreux.Association.Association;
-import com.example.assoevreux.Donnee.AssosApplication;
+import com.example.assoevreux.Application.AssosApplication;
 import com.example.assoevreux.R;
 import com.example.assoevreux.Template.MenuActivity;
 import com.example.assoevreux.databinding.ActivityCategorieBinding;
@@ -85,9 +84,6 @@ public class CategorieActivity extends MenuActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (ui.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            ui.drawerLayout.closeDrawer(GravityCompat.START);
-        }
     }
 
     @Override

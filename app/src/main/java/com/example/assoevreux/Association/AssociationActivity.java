@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.assoevreux.Categorie.CategorieActivity;
 import com.example.assoevreux.Donnee.AssosAdapter;
-import com.example.assoevreux.Donnee.AssosApplication;
+import com.example.assoevreux.Application.AssosApplication;
 import com.example.assoevreux.databinding.ActivityAssociationBinding;
 
 import java.util.regex.Matcher;
